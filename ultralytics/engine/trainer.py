@@ -631,9 +631,10 @@ class BaseTrainer:
         for f in self.last, self.best:
             if f.exists():
                 # custom modified
-                file_path = f if isinstance(f, str) else f.parent
+                file_path = f if isinstance(f, str) else str(f)
                 folder_path, file_name = os.path.split(file_path)
-                save_path = os.path.join(folder_path, file_name.split('.')[0] + '_strip.' + file_name.split('.')[1])
+                ext_split = os.path.splitext(file_name)
+                save_path = os.path.join(folder_path, ext_split[0] + "_strip" + ext_split[1])
                 strip_optimizer(f,save_path)  # strip optimizers
                 # custom modified
                 #strip_optimizer(f)
